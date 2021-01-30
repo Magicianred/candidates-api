@@ -7,7 +7,7 @@ module.exports = ({ business }) => {
 
         res.send({ response, statusCode: 200 })
       } catch (error) {
-        res.send({ error, statusCode: error.status })
+        res.send({ error, statusCode: 500 })
       }
     },
 
@@ -19,7 +19,7 @@ module.exports = ({ business }) => {
 
         res.send({ response, statusCode: 200 })
       } catch (error) {
-        res.send({ error, statusCode: error.status })
+        res.send({ error, statusCode: 500 })
       }
     },
 
@@ -29,7 +29,7 @@ module.exports = ({ business }) => {
 
         res.send({ response, statusCode: 200 })
       } catch (error) {
-        res.send({ error, statusCode: error.status })
+        res.send({ error, statusCode: 500 })
       }
     },
 
@@ -39,7 +39,7 @@ module.exports = ({ business }) => {
 
         res.send({ response, statusCode: 200 })
       } catch (error) {
-        res.send({ error, statusCode: error.status })
+        res.send({ error, statusCode: 500 })
       }
     },
 
@@ -49,7 +49,7 @@ module.exports = ({ business }) => {
 
         res.send({ response, statusCode: 200 })
       } catch (error) {
-        res.send({ error, statusCode: error.status })
+        res.send({ error, statusCode: 500 })
       }
     },
 
@@ -60,7 +60,7 @@ module.exports = ({ business }) => {
 
         res.send({ response, statusCode: 200 })
       } catch (error) {
-        res.send({ error, statusCode: error.status })
+        res.send({ error, statusCode: 500 })
       }
     }
   }

@@ -17,15 +17,27 @@ module.exports = ({ moongose }) => {
   const Candidates = moongose.model('candidates', CandidateSchema);
 
   const listCandidates = async () => {
-    return await Candidates.find({})
+    try {
+      return await Candidates.find({})
+    } catch (error) {
+      return error
+    }
   }
 
   const listCandidatesByLocal = async (city) => {
-    return await Candidates.find({ city: city })
+    try {
+      return await Candidates.find({ city: city })
+    } catch (error) {
+      return error
+    }
   }
 
   const listCandidatesByExperience = async (experience) => {
-    return await Candidates.find({ experience })
+    try {
+      return await Candidates.find({ experience })
+    } catch (error) {
+      return error
+    }
   }
 
   return {

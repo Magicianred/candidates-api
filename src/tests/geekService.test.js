@@ -1,8 +1,8 @@
 const chai = require('chai')
 const sinon = require('sinon')
-const sinonChai = require("sinon-chai");
+const sinonChai = require("sinon-chai")
 
-chai.use(sinonChai);
+chai.use(sinonChai)
 
 const { assert } = chai
 
@@ -118,5 +118,3 @@ describe('getJobs', function () {
     assert.strictEqual(getAxios.called, true)
   })
 })
-
-

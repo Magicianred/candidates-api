@@ -1,109 +1,133 @@
 module.exports = ({ repository, services }) => {
 
   const listCandidates = async () => {
-    const response = await repository.listCandidates()
+    try {
+      const response = await repository.listCandidates()
 
-    return response
+      return response
+    } catch (error) {
+      return error
+    }
   }
 
   const listCandidatesByLocal = async (city) => {
-    const response = await repository.listCandidatesByLocal(city)
+    try {
+      const response = await repository.listCandidatesByLocal(city)
 
-    return response
+      return response
+    } catch (error) {
+      return error
+    }
   }
 
   const listJobs = async () => {
-    const response = await services.geekService.getJobs()
+    try {
+      const response = await services.geekService.getJobs()
 
-    return response
+      return response
+    } catch (error) {
+      return error
+    }
   }
 
   const listLocations = async () => {
-    const { candidates, jobs } = await services.geekService.getAll()
+    try {
+      const { candidates, jobs } = await services.geekService.getAll()
 
-    const candidateCities = []
-    candidates.forEach((candidate) => {
-      candidateCities.push(candidate.city)
-    })
+      const candidateCities = []
+      candidates.forEach((candidate) => {
+        candidateCities.push(candidate.city)
+      })
 
-    const jobCities = []
-    jobs.forEach((job) => {
-      jobCities.push(job.city)
-    })
+      const jobCities = []
+      jobs.forEach((job) => {
+        jobCities.push(job.city)
+      })
 
-    const cities = [...candidateCities, ...jobCities]
+      const cities = [...candidateCities, ...jobCities]
 
-    const noRepeatCities = [...new Set(cities)]
+      const noRepeatCities = [...new Set(cities)]
 
-    noRepeatCities.sort((a, b) => a.localeCompare(b))
+      noRepeatCities.sort((a, b) => a.localeCompare(b))
 
-    return noRepeatCities
+      return noRepeatCities
+    } catch (error) {
+      return error
+    }
   }
 
   const listTechs = async () => {
-    const candidates = await services.geekService.getCandidates()
+    try {
+      const candidates = await services.geekService.getCandidates()
 
-    const candidateTechs = []
-    candidates.forEach((candidate) => {
-      candidateTechs.push(...candidate.technologies)
-    })
+      const candidateTechs = []
+      candidates.forEach((candidate) => {
+        candidateTechs.push(...candidate.technologies)
+      })
 
-    const techs = []
-    candidateTechs.forEach((skill) => {
-      techs.push(skill.name)
-    })
+      const techs = []
+      candidateTechs.forEach((skill) => {
+        techs.push(skill.name)
+      })
 
-    const noRepeatTechs = [...new Set(techs)]
+      const noRepeatTechs = [...new Set(techs)]
 
-    noRepeatTechs.sort((a, b) => a.localeCompare(b))
+      noRepeatTechs.sort((a, b) => a.localeCompare(b))
 
-    return noRepeatTechs
+      return noRepeatTechs
+    } catch (error) {
+      return error
+    }
   }
 
   const getMatchedCandidates = async (profile) => {
-    const candidates = await repository.listCandidatesByLocal(profile.city)
+    try {
+      const candidates = await repository.listCandidatesByLocal(profile.city)
 
-    if (candidates.length <= 5)
-      return candidates
+      if (candidates.length <= 5)
+        return candidates
 
-    const regex = RegExp("\\d{0,2}", "g")
-    const filterExperience = candidates.filter((candidate) => {
-      let aux = candidate.experience.match(regex)
-      let time = aux.filter(value => value !== "")
+      const regex = RegExp("\\d{0,2}", "g")
+      const filterExperience = candidates.filter((candidate) => {
+        let aux = candidate.experience.match(regex)
+        let time = aux.filter(value => value !== "")
 
-      if (time.lenght > 1) {
-        return time[0] >= profile.minimumExperience && time[1] <= profile.maxExperience
-      }
+        if (time.lenght > 1) {
+          return time[0] >= profile.minimumExperience && time[1] <= profile.maxExperience
+        }
 
-      if (profile.maxExperience) {
-        return time[0] >= profile.minimumExperience && time[0] <= profile.maxExperience
-      }
+        if (profile.maxExperience) {
+          return time[0] >= profile.minimumExperience && time[0] <= profile.maxExperience
+        }
 
-      return time[0] >= profile.minimumExperience
-    })
+        return time[0] >= profile.minimumExperience
+      })
 
-    if (filterExperience.length <= 5)
-      return filterExperience
+      if (filterExperience.length <= 5)
+        return filterExperience
 
-    const filterTechnologies = filterExperience.filter((candidate) => {
-      const techs = []
-      for (const tech of profile.technologies) {
-        let temp = candidate.technologies.find(skill => {
-          return skill.name === tech
-        })
+      const filterTechnologies = filterExperience.filter((candidate) => {
+        const techs = []
+        for (const tech of profile.technologies) {
+          let temp = candidate.technologies.find(skill => {
+            return skill.name === tech
+          })
 
-        if (temp)
-          techs.push(temp)
-      }
+          if (temp)
+            techs.push(temp)
+        }
 
-      if (techs.length === profile.technologies.length) {
-        return true
-      }
+        if (techs.length === profile.technologies.length) {
+          return true
+        }
 
-      return false
-    })
+        return false
+      })
 
-    return filterTechnologies
+      return filterTechnologies
+    } catch (error) {
+      return error
+    }
   }
 
   return {
