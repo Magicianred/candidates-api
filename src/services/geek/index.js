@@ -24,7 +24,7 @@ module.exports = ({ axios }) => {
 
   const getJobs = async () => {
     try {
-      const data = axios.get(GEEK_HUNTER_API)
+      const { data } = await axios.get(GEEK_HUNTER_API)
 
       return data.jobs
     } catch (error) {

@@ -26,10 +26,6 @@ const controller = require('./controller')({ business })
 
 require('./router')({ router, controller })
 
-router.get('/health', (req, res, next) => {
-  res.send("OK")
-})
-
 app.listen(PORT, () => {
   console.log(`We are Up and Running :D at port ${PORT}`);
 })
