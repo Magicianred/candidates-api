@@ -13,7 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 app.use(router)
 
-const { PORT, MONGODB } = process.env
+var { PORT, MONGODB } = process.env
+
+if (!MONGODB)
+  MONGODB = "mongodb+srv://dodozaum:qhhQ9hCGQlR5DHJE@clusterfreecodecamp.nd3vs.mongodb.net/geekhunter?retryWrites=true"
 
 moongose.connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB conectado...'))
